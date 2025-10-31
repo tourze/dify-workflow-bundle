@@ -1,0 +1,14 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    # 工作流服务
+    Tourze\DifyWorkflowBundle\Service\WorkflowService:
+        arguments:
+            $apiClient: '@HttpClientBundle\Client\ApiClient'
+
+    # Request 类
+    Tourze\DifyWorkflowBundle\Request\GetWorkflowLogsRequest: ~
+    Tourze\DifyWorkflowBundle\Request\StopWorkflowTaskRequest: ~
+    Tourze\DifyWorkflowBundle\Request\WorkflowRunRequest: ~
