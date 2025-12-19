@@ -1,14 +1,16 @@
 services:
+    # default configuration for services in *this* file
     _defaults:
-        autowire: true
-        autoconfigure: true
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        public: false
 
-    # 工作流服务
+    # 自动注册目录服务
+    Tourze\DifyWorkflowBundle\Service\:
+        resource: '../../Service/'
+        public: true
+
+    # WorkflowService 的自定义参数配置
     Tourze\DifyWorkflowBundle\Service\WorkflowService:
         arguments:
             $apiClient: '@HttpClientBundle\Client\ApiClient'
-
-    # Request 类
-    Tourze\DifyWorkflowBundle\Request\GetWorkflowLogsRequest: ~
-    Tourze\DifyWorkflowBundle\Request\StopWorkflowTaskRequest: ~
-    Tourze\DifyWorkflowBundle\Request\WorkflowRunRequest: ~

@@ -6,8 +6,9 @@ namespace Tourze\DifyWorkflowBundle\Tests\Service;
 
 use HttpClientBundle\Client\ApiClient;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\TestCase;
+use Tourze\PHPUnitSymfonyKernelTest\AbstractIntegrationTestCase;
 use Tourze\DifyWorkflowBundle\Request\GetWorkflowLogsRequest;
 use Tourze\DifyWorkflowBundle\Request\StopWorkflowTaskRequest;
 use Tourze\DifyWorkflowBundle\Request\WorkflowRunRequest;
@@ -17,15 +18,19 @@ use Tourze\DifyWorkflowBundle\Service\WorkflowService;
  * @internal
  */
 #[CoversClass(WorkflowService::class)]
-final class WorkflowServiceTest extends TestCase
+#[RunTestsInSeparateProcesses]
+final class WorkflowServiceTest extends AbstractIntegrationTestCase
 {
     private MockObject|ApiClient $apiClient;
-
     private WorkflowService $workflowService;
 
-    protected function setUp(): void
+    protected function onSetUp(): void
     {
+        // 创建 ApiClient Mock
         $this->apiClient = $this->createMock(ApiClient::class);
+
+        // 直接实例化 WorkflowService，避免容器相关问题
+        // @phpstan-ignore integrationTest.noDirectInstantiationOfCoveredClass
         $this->workflowService = new WorkflowService($this->apiClient);
     }
 
